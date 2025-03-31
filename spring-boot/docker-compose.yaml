@@ -29,7 +29,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     networks:
       - spring-network
-      - pg-network   # O db está conectado à rede pg-network
+      - pg-network
     ports:
       - "5432:5432"
     healthcheck:
@@ -44,7 +44,6 @@ networks:
     name: spring-network
   pg-network:
     driver: bridge
-    name: pg-network  # Garantindo que o nome da rede seja exatamente 'pg-network'
-
+    name: pg-network  
 volumes:
   db-data:
