@@ -13,4 +13,4 @@ services:
 
 networks:
   spring-network:
-    driver: bridge  # Usando o driver bridge para uma rede personalizada
+    driver: bridge  
