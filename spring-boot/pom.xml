@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>com.project</groupId>
-	<artifactId>crud</artifactId>
+	<artifactId>springapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
@@ -21,11 +21,18 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.ibeetl</groupId>
+			<artifactId>postgres</artifactId>
+			<version>3.22.0-RELEASE</version>
+		</dependency>
+
 		<!-- Spring Boot DevTools (sem versão, a versão será herdada do starter-parent) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<scope>development</scope>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- Spring Boot Starter Web (sem versão, a versão será herdada do starter-parent) -->
