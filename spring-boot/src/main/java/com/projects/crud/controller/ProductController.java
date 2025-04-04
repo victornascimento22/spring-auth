@@ -33,14 +33,14 @@ public class ProductController {
         return ResponseEntity.ok(createdProduct);
     }
 
-    // 🔹 Listar todos os produtos ativos
+    //  Listar todos os produtos ativos
     @GetMapping("getAll")
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
         List<ProductResponseDTO> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
 
-    // 🔹 Buscar produto por ID
+    //  Buscar produto por ID
     @GetMapping("/getByID/{id}")
     public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable int id) {
         ProductResponseDTO product = productService.getProductByID(id);
@@ -61,14 +61,14 @@ public class ProductController {
         return ResponseEntity.ok(updatedProduct);
     }
 
-    // 🔹 Inativar (soft delete) um produto
+    //  Inativar (soft delete) um produto
     @DeleteMapping("/inative/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable int id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 
-    // 🔹 Reativar um produto inativo
+    //  Reativar um produto inativo
     @PutMapping("/enable/{id}")
     public ResponseEntity<Void> enableProduct(@PathVariable int id) {
         productService.enableProduct(id);

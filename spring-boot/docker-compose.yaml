@@ -41,9 +41,6 @@ networks:
   spring-network:
     driver: bridge
     name: spring-network
-  pg-network:
-    driver: bridge
-    name: pg-network  # Garantindo que o nome da rede seja exatamente 'pg-network'
 
 volumes:
   db-data:
