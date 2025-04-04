@@ -1,4 +1,5 @@
 package com.projects.crud.model;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -9,10 +10,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Product")
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -31,10 +34,11 @@ public class Product {
     @Column(nullable = false)
     private int stock;
 
-    @Column(length = 50)
-    private String category;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
-    @Column(name = "insert_at", nullable = false)
+    @Column(name = "insert_at", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime insertAt;
 
@@ -43,7 +47,7 @@ public class Product {
 
     public Product() { }
 
-    public Product(String name, String description, BigDecimal price, int stock, String category) {
+    public Product(String name, String description, BigDecimal price, int stock, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -52,17 +56,8 @@ public class Product {
         this.insertAt = LocalDateTime.now();
     }
 
+    // Getters e Setters
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-
-        this.active = active;
-    }
-
-    // 🔹 Getters e Setters
     public int getId() {
         return id;
     }
@@ -103,11 +98,11 @@ public class Product {
         this.stock = stock;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -117,5 +112,13 @@ public class Product {
 
     public void setInsertAt(LocalDateTime insertAt) {
         this.insertAt = insertAt;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

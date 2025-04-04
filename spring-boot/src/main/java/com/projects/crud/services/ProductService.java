@@ -8,20 +8,27 @@ import org.springframework.stereotype.Service;
 import com.projects.crud.dtos.ProductRequestDTO;
 import com.projects.crud.dtos.ProductResponseDTO;
 import com.projects.crud.mapper.ProductMapper;
+import com.projects.crud.model.Category;
 import com.projects.crud.model.Product;
+import com.projects.crud.repository.CategoryRepository;
 import com.projects.crud.repository.ProductRepository;
 
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductService(ProductRepository productRepository){
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository){
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public ProductResponseDTO createProduct(ProductRequestDTO dto) {
-        Product product = ProductMapper.toEntity(dto);
+        Category category = categoryRepository.findByName(dto.getCategory())
+            .orElseThrow(() -> new RuntimeException("Category not found: " + dto.getCategory()));
+
+        Product product = ProductMapper.toEntity(dto, category);
         product.setActive(true); // Sempre começa como ativo
         product = productRepository.save(product);
         return ProductMapper.toDTO(product);
@@ -47,8 +54,11 @@ public class ProductService {
         Product existingProduct = productRepository.findByIdAndActiveTrue(id)
             .orElseThrow(() -> new RuntimeException("Product id " + id + " not found"));
 
+        Category category = categoryRepository.findByName(dto.getCategory())
+            .orElseThrow(() -> new RuntimeException("Category not found: " + dto.getCategory()));
+
         existingProduct.setName(dto.getName());
-        existingProduct.setCategory(dto.getCategory());
+        existingProduct.setCategory(category);
         existingProduct.setDescription(dto.getDescription());
         existingProduct.setPrice(dto.getPrice());
         existingProduct.setStock(dto.getStock());
